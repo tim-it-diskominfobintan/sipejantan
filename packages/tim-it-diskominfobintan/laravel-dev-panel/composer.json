@@ -1,0 +1,74 @@
+{
+    "name": "tim-it-diskominfobintan/laravel-dev-panel",
+    "description": "Panel developer Laravel untuk debugging, monitoring, dan pengelolaan aplikasi saat development.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tim IT Diskominfo Bintan, Bidang E-Goverment",
+            "email": "egoverment2020@gmail.com",
+            "homepage": "https://diskominfo.bintankab.go.id",
+            "role": "Owner"
+        },
+        {
+            "name": "Dimas Nugroho Putro",
+            "email": "dimasnugroho673@gmail.com",
+            "homepage": "https://diskominfo.bintankab.go.id",
+            "role": "Developer"
+        },
+        {
+            "name": "Hendra Riadi",
+            "homepage": "https://diskominfo.bintankab.go.id",
+            "role": "Developer"
+        },
+        {
+            "name": "Robby Kurniawan",
+            "homepage": "https://diskominfo.bintankab.go.id",
+            "role": "Developer"
+        },
+        {
+            "name": "Dadan Mahardika",
+            "homepage": "https://diskominfo.bintankab.go.id",
+            "role": "Developer"
+        },
+        {
+            "name": "Fajar Nurhuda",
+            "homepage": "https://diskominfo.bintankab.go.id",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "support": {
+        "email": "egoverment2020@gmail.com"
+    },
+
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../../packages/tim-it-diskominfobintan/laravel-proxy-scheduler",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "laravel/framework": "^8.0|^9.0",
+        "tim-it-diskominfobintan/laravel-proxy-scheduler": "@dev",
+        "yajra/laravel-datatables-oracle": "~9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "TimItDiskominfoBintan\\DevPanel\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "TimItDiskominfoBintan\\DevPanel\\DevPanelServiceProvider",
+                "Yajra\\DataTables\\DataTablesServiceProvider"
+            ]
+        }
+    }
+}

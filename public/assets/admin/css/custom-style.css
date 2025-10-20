@@ -1,0 +1,294 @@
+/* Adwaita Sans - Regular */
+@font-face {
+    font-family: 'Adwaita Sans';
+    src: url('/assets/admin/fonts/AdwaitaSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Adwaita Sans - Italic */
+@font-face {
+    font-family: 'Adwaita Sans';
+    src: url('/assets/admin/fonts/AdwaitaSans-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+/* Adwaita Mono - Regular */
+@font-face {
+    font-family: 'Adwaita Mono';
+    src: url('/assets/admin/fonts/AdwaitaMono-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Plus Jakarta Sans - Bold */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/admin/fonts/PlusJakartaSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* Plus Jakarta Sans - Bold Italic */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/admin/fonts/PlusJakartaSans-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* Plus Jakarta Sans - Extra Bold */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/admin/fonts/PlusJakartaSans-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* Plus Jakarta Sans - Extra Bold Italic */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/admin/fonts/PlusJakartaSans-ExtraBoldItalic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+}
+
+/* Plus Jakarta Sans - Extra Light */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/admin/fonts/PlusJakartaSans-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+/* Plus Jakarta Sans - Extra Light Italic */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/admin/fonts/PlusJakartaSans-ExtraLightItalic.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+}
+
+/* Plus Jakarta Sans - Italic */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/admin/fonts/PlusJakartaSans-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+
+/* Plus Jakarta Sans - Light */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/admin/fonts/PlusJakartaSans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* Plus Jakarta Sans - Light Italic */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/admin/fonts/PlusJakartaSans-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+/* Plus Jakarta Sans - Medium */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/admin/fonts/PlusJakartaSans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+/* Plus Jakarta Sans - Medium Italic */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/admin/fonts/PlusJakartaSans-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+
+/* Plus Jakarta Sans - Regular */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/admin/fonts/PlusJakartaSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Plus Jakarta Sans - Semi Bold */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/admin/fonts/PlusJakartaSans-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+/* Plus Jakarta Sans - Semi Bold Italic */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/admin/fonts/PlusJakartaSans-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.table.dataTable thead tr th {
+    height: 42px;
+    padding-bottom: 12px;
+}
+
+#table_wrapper input {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    height: 38px;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: none;
+}
+
+#table_wrapper select {
+    padding-left: 10px !important;
+    height: 38px;
+    border-radius: 8px;
+    box-shadow: none;
+}
+
+div.table-responsive.table-full-to-card-body>div.dt-container>div.row:first-child,
+div.table-responsive>div.dt-container>div.row:last-child {
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+}
+
+.dt-container.dt-bootstrap5.dt-empty-footer .row.mt-2.justify-content-between {
+    margin-bottom: 20px;
+}
+
+.modal-content,
+.modal-content .modal-footer {
+    border-radius: 18px !important;
+}
+
+.card {
+    border-radius: 18px !important;
+    border: 1px rgba(0, 0, 0, .1) solid;
+}
+
+.card-header {
+    border-radius: 18px 18px 0 0 !important;
+}
+
+.card-footer {
+    border-radius: 0 0 18px 18px !important;
+}
+
+input, button {
+    border-radius: 10px !important;
+}
+
+.input-group > :not(:first-child) {
+    border-radius: 0 10px 10px 0 !important;
+}
+
+.input-group > :is(:first-child) {
+    border-radius: 10px 0 0 10px !important;
+}
+
+[data-bs-theme="light"] .nav-link.active i {
+    color: #066FD1;
+    -webkit-text-stroke-width: .5px;
+}
+
+[data-bs-theme="dark"] .nav-link.active i {
+    color: #ffffff;
+    -webkit-text-stroke-width: .5px;
+}
+
+[data-bs-theme="light"] .nav-link.active {
+    color: #066FD1 !important;
+    background-color: #DCE8F9;
+    border-radius: 0 50px 50px 0 !important;
+    font-weight: bolder;
+}
+
+[data-bs-theme="dark"] .nav-link.active {
+    color: #ffffff !important;
+    background-color: #e8e8e818;
+    border-radius: 0 !important;
+    font-weight: bolder;
+}
+
+[data-bs-theme="light"] .dropdown-item.active {
+    font-weight: bolder;
+    color: #066FD1 !important;
+    background-color: transparent !important;
+}
+
+[data-bs-theme="dark"] .dropdown-item.active {
+    font-weight: bolder;
+    color: #ffffff !important;
+    background-color: transparent !important;
+}
+
+.account-loggedin-sidebar:hover {
+    background-color: #f3f8ff;
+}
+
+.card-title-large {
+    font-weight: 700;
+    font-size: 36px !important;
+}
+
+.card-footer {
+    background: none;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.page-pretitle {
+    text-transform: none;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.pre-footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    border-top: 1px solid #ddd;
+}
+
+.pre-footer h5 {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.pre-footer p,
+.pre-footer ul {
+    margin-bottom: 0;
+}
+
+.pre-footer ul {
+    padding-left: 0;
+}
+
+.pre-footer ul li {
+    list-style-type: none;
+}
+
+.pre-footer ul li a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.pre-footer ul li a:hover {
+    text-decoration: underline;
+}

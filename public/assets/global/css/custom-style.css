@@ -1,0 +1,253 @@
+code {
+    font-size: 87.5%;
+    color: #e83e8c;
+    background-color: transparent;
+    word-wrap: break-word;
+}
+
+/* SWAL */
+.swal2-popup.swal2-modal {
+    border-radius: 18px;
+}
+
+/* ===== START Badge ===== */
+
+.badge {
+    font-size: 80%;
+    padding: 0.35em 0.6em;
+    font-weight: 600;
+}
+
+.badge-light-primary {
+    background: rgba(64, 153, 255, 0.2);
+    border-color: #cae2ff;
+    color: #4099ff;
+}
+
+.badge-light-warning {
+    background: rgba(255, 182, 77, 0.2);
+    border-color: blanchedalmond;
+    color: #FFB64D;
+}
+
+.badge-light-success {
+    background: rgba(46, 216, 182, 0.2);
+    border-color: #c4f4eb;
+    color: #2ed8b6;
+}
+
+.badge-light-info {
+    background: rgba(0, 188, 212, 0.2);
+    border-color: #b8ecf3;
+    color: #00bcd4;
+}
+
+.badge-light-light {
+    background: rgba(248, 249, 250, 0.2);
+    border-color: #fdfdfe;
+    color: #f8f9fa;
+}
+
+.badge-light-danger {
+    background: rgba(255, 83, 112, 0.2);
+    border-color: #ffcfd7;
+    color: #FF5370;
+}
+
+.badge-light-secondary {
+    background: #E2E3E5;
+    border-color: #E2E3E5;
+    color: #6D757D;
+}
+
+/* ===== END Badge ===== */
+
+/* Light Backgrounds */
+.bg-primary-light {
+    background-color: #cfe2ff;
+    border-color: #cfe2ff;
+}
+
+.bg-secondary-light {
+    background-color: #e2e3e5;
+    border-color: #e2e3e5;
+}
+
+.bg-success-light {
+    background-color: #d1e7dd;
+    border-color: #d1e7dd;
+}
+
+.bg-danger-light {
+    background-color: #f8d7da;
+    border-color: #f8d7da;
+}
+
+.bg-warning-light {
+    background-color: #fff3cd;
+    border-color: #fff3cd;
+}
+
+.bg-info-light {
+    background-color: #cff4fc;
+    border-color: #cff4fc;
+}
+
+.bg-dark-light {
+    background-color: #d3d3d4;
+    border-color: #d3d3d4;
+}
+
+/*--------------------------------------------------------------
+# Buttons
+--------------------------------------------------------------*/
+.btn {
+    font-weight: 600;
+}
+
+.btn-secondary-light {
+    border: none;
+    background-color: #E0E0E3 !important;
+}
+
+.btn-secondary-light:hover {
+    background-color: #E0E0E3 !important;
+    filter: brightness(95%);
+}
+
+.btn-primary-light {
+    border: none;
+    color: #1967D2 !important;
+    background-color: #E8F0FD !important;
+}
+
+.btn-primary-light:hover {
+    color: #1967D2 !important;
+    background-color: #E8F0FD !important;
+    filter: brightness(95%);
+}
+
+.btn-warning-light {
+    border: none;
+    color: #7A6618 !important;
+    background-color: #fff3cd !important;
+}
+
+.btn-warning-light:hover {
+    color: #7A6618 !important;
+    background-color: #fff3cd !important;
+    filter: brightness(95%);
+}
+
+.btn-danger-light {
+    border: none;
+    color: #EA4335 !important;
+    background-color: #FCE8E6 !important;
+}
+
+.btn-danger-light:hover {
+    color: #EA4335 !important;
+    background-color: #FCE8E6 !important;
+    filter: brightness(95%);
+}
+
+.btn-success-light {
+    border: none;
+    color: #398039 !important;
+    background-color: #CEEAD6 !important;
+}
+
+.btn-success-light:hover {
+    color: #398039 !important;
+    background-color: #CEEAD6 !important;
+    filter: brightness(95%);
+}
+
+
+/*--------------------------------------------------------------
+  # Bootstrap icon bold
+  --------------------------------------------------------------*/
+
+.force-bi-bold-05 {
+    -webkit-text-stroke-width: .5px;
+}
+
+.force-bi-bold-1 {
+    -webkit-text-stroke-width: 1px;
+}
+
+.force-bi-bold-1-5 {
+    -webkit-text-stroke-width: 1.5px;
+}
+
+.force-bi-bold-2 {
+    -webkit-text-stroke-width: 2px;
+}
+
+
+/* CUSTOM */
+.card {
+    border-radius: 12px;
+    border-color: transparent;
+    box-shadow: 0 2px 5px 1px rgba(133, 133, 133, 0.1);
+}
+
+.card .card-footer {
+    border-radius: 0 0 12px 12px;
+}
+
+.rounded-modern {
+    border-radius: 18px;
+}
+
+.card.card-modern {
+    border-radius: 18px;
+}
+
+.card.card-modern .card-header {
+    border-bottom: none;
+}
+
+/* ICON CLICKABLE */
+/* .icon-clickable {
+    padding: 10px;
+    border-radius: 50%;
+} */
+
+.icon-clickable:hover {
+    color: #575757;
+    cursor: pointer;
+}
+
+.btn-share-link {
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
+}
+
+.btn-share-link i {
+    font-size: 22px;
+}
+
+/* STANDART COLOR */
+.bg-color-whatsapp {
+    background-color: #25D366;
+}
+
+.modal-borderless .modal-header,
+.modal-footer {
+    border: none;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.badge-tag {
+    background-color: #ababab;
+    height: 40px;
+    width: 140px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+}
