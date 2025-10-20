@@ -14,7 +14,7 @@ class DashboardController extends Controller
         $data['title'] = "Dashboard";
         $data['kecamatan'] = Kecamatan::all();
         $data['subtitle'] = "Pantau summary data disini.";
-       
+
         return view('admin.dashboard.index', $data);
     }
 
@@ -32,7 +32,7 @@ class DashboardController extends Controller
 
     public function asset()
     {
-        $data = Asset::with('penanggung_jawab', 'jenis_asset', 'jalan', 'laporan', 'dokumen')->get();
+        $data = Asset::with('penanggung_jawab', 'jenis_asset', 'jalan', 'laporan', 'dokumen', 'latestLaporan')->get();
         return response()->json([
             'status' => 'success',
             'data'   => $data

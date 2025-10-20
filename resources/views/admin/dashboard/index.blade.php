@@ -110,6 +110,38 @@
             height: 35px;
             object-fit: contain;
         }
+
+        .ui-autocomplete {
+            background-color: #fff !important;
+            /* buat putih solid */
+            border: 1px solid #ced4da !important;
+            border-radius: 0.25rem;
+            max-height: 250px;
+            overflow-y: auto;
+            z-index: 2000 !important;
+            /* agar di atas modal Bootstrap */
+            padding: 0;
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+        }
+
+        /* Item dalam daftar autocomplete */
+        .ui-menu-item-wrapper {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            color: #212529;
+        }
+
+        /* Saat di-hover */
+        .ui-menu-item-wrapper.ui-state-active {
+            background-color: #0d6efd !important;
+            /* warna primary Bootstrap */
+            color: #fff !important;
+        }
+
+        /* Perbaiki posisi agar dropdown tidak transparan di dalam modal */
+        .ui-front {
+            z-index: 2000 !important;
+        }
     </style>
 
     <div class="page-body">
@@ -157,12 +189,33 @@
 
                     <!-- Kolom Detail Asset -->
                     <div class="col-lg-4 col-md-12">
-                        <div class="card shadow-sm h-100" id="detail-asset">
+                        <div class="card">
+                            <div class="d-flex align-items-center border-bottom p-2">
+                                <!-- Tombol kamera -->
+                                <button id="btnScanAsset" class="btn btn-outline-secondary me-2" title="Scan Barcode">
+                                    <i class="bi bi-camera"></i>
+                                </button>
+                                <!-- Input cari asset -->
+                                <input type="text" id="searchAsset" class="form-control"
+                                    placeholder="Ketik nama atau kode asset...">
+                            </div>
+                        </div>
+                        <div class="card shadow-sm h-80" id="detail-asset">
                             <div class="card-body d-flex justify-content-center align-items-center text-muted">
                                 <p class="mb-0">Pilih asset pada peta untuk melihat detail</p>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cameraModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div id="readerAsset" style="width:100%"></div>
                 </div>
             </div>
         </div>
@@ -179,6 +232,8 @@
     </div>
 @endsection
 @push('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <script>
         var peta1 = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
             attribution: '© Diskominfo Bintan',
@@ -212,12 +267,15 @@
             position: 'bottomright'
         });
 
+        let assets = []; // pastikan ini global
         function getAllAsset() {
             $.ajax({
                 url: "{{ url()->current() }}" + "/asset",
                 type: "get",
                 dataType: "json",
                 success: function(response) {
+                    assets = response.data || [];
+                    window.assets = response.data;
                     const data = response.data;
                     data.forEach(asset => {
                         if (!asset.koordinat) return;
@@ -286,6 +344,40 @@
 
                         map.addLayer(marker);
                     });
+                    initAutocomplete();
+                }
+            });
+        }
+
+        function initAutocomplete() {
+            if (typeof $.ui === "undefined" || !$.ui.autocomplete) {
+                console.warn("jQuery UI belum dimuat — autocomplete tidak aktif.");
+                return;
+            }
+
+            $("#searchAsset").autocomplete({
+                source: assets.map(a => ({
+                    label: `${a.nama_asset} (${a.kode_asset})`,
+                    value: a.nama_asset,
+                    kode: a.kode_asset
+                })),
+                minLength: 2,
+                select: function(event, ui) {
+                    const selected = assets.find(a =>
+                        a.nama_asset.toLowerCase() === ui.item.value.toLowerCase() ||
+                        a.kode_asset.toLowerCase() === ui.item.kode.toLowerCase()
+                    );
+
+                    if (selected) {
+                        renderDetailAsset(selected);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Asset ditemukan',
+                            text: `${selected.nama_asset} (${selected.kode_asset})`,
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    }
                 }
             });
         }
@@ -328,37 +420,14 @@
             $("#detail-asset").html(`
                 <div class="card-body p-3">
                     <!-- Header -->
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <div class="d-flex align-items-center">
-                            <div class="d-flex align-items-center justify-content-center" 
-                                style="width:45px; height:45px;">
-                                <img src="{{ asset('storage') }}/${asset.jenis_asset.foto_jenis_asset}" class="avatar">
-                            </div>
-                            <div class="ms-3">
-                                <h4 class="mb-0 fw-bold">${ucwords(asset.nama_asset)}</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Info List -->
-                    <ul class="list-unstyled mb-4">
-                        <li class="d-flex align-items-center mb-2">
-                            <i class="bi bi-diagram-3 text-primary me-2"></i>
-                            <span>${ucwords(asset.jenis_asset.jenis_asset)}</span>
-                        </li>
-                        <li class="d-flex align-items-center mb-2">
-                            <i class="bi bi-person-badge text-info me-2"></i>
-                            <span>${ucwords(asset.penanggung_jawab.nama_penanggung_jawab)}</span>
-                        </li>
-                        <li class="d-flex align-items-center mb-2">
-                            <i class="bi bi-signpost text-secondary me-2"></i>
-                            <span>${ucwords(asset.jalan.nama_jalan)} - (${asset.jalan.panjang_jalan} M)</span>
-                        </li>
-                        <li class="d-flex align-items-center">
-                            <i class="bi bi-geo-alt text-danger me-2"></i>
-                            <span>${asset.koordinat}</span>
-                        </li>
-                    </ul>
+                    <div class="asset-detail-item mb-2"><b>Nama Asset:</b> ${asset.nama_asset}</div>
+        <div class="asset-detail-item mb-2"><b>Kode Asset:</b> ${asset.kode_asset}</div>
+        <div class="asset-detail-item mb-2"><b>Jenis Asset:</b> ${asset.jenis_asset.jenis_asset}</div>
+        <div class="asset-detail-item mb-2"><b>Penanggung Jawab:</b> ${asset.penanggung_jawab.nama_penanggung_jawab}</div>
+        <div class="asset-detail-item mb-2"><b>Jalan:</b> ${asset.jalan.nama_jalan}</div>
+        <div class="asset-detail-item mb-2"><b>Koordinat:</b> ${asset.koordinat}</div>
+        <div class="asset-detail-item mb-2"><b>Status Akhir:</b> ${asset.latest_laporan && asset.latest_laporan.status_laporan ? asset.latest_laporan.status_laporan : '-'}</div>
+        <div class="asset-detail-item mb-2"><b>Kondisi:</b> ${asset.kondisi}</div>
 
                     <!-- Foto Asset -->
                     <div class="text-center mb-3">
@@ -403,5 +472,99 @@
         }
 
         getAllAsset();
+
+        let html5QrCodeAsset = null;
+
+        // Klik tombol kamera
+        document.getElementById("btnScanAsset").addEventListener("click", function() {
+            // Tampilkan modal kamera
+            $('#cameraModal').modal('show');
+        });
+
+        // Jalankan scanner setelah modal terbuka penuh
+        $('#cameraModal').on('shown.bs.modal', function() {
+
+            // Jika kamera masih aktif → hentikan dulu
+            if (html5QrCodeAsset) {
+                html5QrCodeAsset.stop().catch(() => {}).then(() => html5QrCodeAsset.clear());
+            }
+
+            html5QrCodeAsset = new Html5Qrcode("readerAsset");
+            let lastErrorTime = 0;
+            // Mulai scanning
+            html5QrCodeAsset.start({
+                    facingMode: "environment"
+                }, {
+                    fps: 10,
+                    qrbox: {
+                        width: 300,
+                        height: 300
+                    },
+                    aspectRatio: 1.0,
+                    disableFlip: false,
+                },
+                (decodedText) => {
+                    html5QrCodeAsset.stop().then(() => {
+                        $('#cameraModal').modal('hide');
+
+                        if (!window.assets || window.assets.length === 0) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Data asset belum dimuat',
+                                text: 'Silakan tunggu hingga peta selesai dimuat.',
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
+                            return;
+                        }
+
+                        const found = window.assets.find(a =>
+                            a.nama_asset.toLowerCase().includes(decodedText.toLowerCase()) ||
+                            a.kode_asset.toLowerCase().includes(decodedText.toLowerCase())
+                        );
+
+                        if (found) {
+                            renderDetailAsset(found);
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Asset ditemukan',
+                                text: `${found.nama_asset} (${found.kode_asset})`,
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Asset tidak ditemukan',
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                        }
+                    });
+                },
+                (errorMsg) => {
+                    // Hanya tampilkan error 1x tiap 2 detik agar tidak spam
+                    const now = Date.now();
+                    // tampilkan error hanya tiap 3 detik sekali agar tidak spam
+                    if (now - lastErrorTime > 50000) {
+                        console.log("Scan error:", errorMsg);
+                        lastErrorTime = now;
+                    }
+                }
+            ).catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Kamera gagal dijalankan',
+                    text: err,
+                });
+            });
+        });
+
+        // Matikan kamera jika modal ditutup manual
+        $('#cameraModal').on('hidden.bs.modal', function() {
+            if (html5QrCodeAsset) {
+                html5QrCodeAsset.stop().catch(() => {}).then(() => html5QrCodeAsset.clear());
+            }
+        });
     </script>
 @endpush

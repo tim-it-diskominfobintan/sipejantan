@@ -645,7 +645,7 @@
                 }
 
                 html5QrCodeAsset = new Html5Qrcode("readerAsset");
-
+                let lastErrorTime = 0;
                 html5QrCodeAsset.start({
                         facingMode: "environment"
                     }, {
@@ -688,8 +688,12 @@
                         });
                     },
                     (errorMsg) => {
-                        // abaikan error kecil (misalnya gagal fokus)
-                        console.log("Scan error:", errorMsg);
+                        const now = Date.now();
+                        // tampilkan error hanya tiap 3 detik sekali agar tidak spam
+                        if (now - lastErrorTime > 50000) {
+                            console.log("Scan error:", errorMsg);
+                            lastErrorTime = now;
+                        }
                     }
                 ).catch((err) => {
                     Swal.fire({
