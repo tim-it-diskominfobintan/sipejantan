@@ -267,6 +267,12 @@
             position: 'bottomright'
         });
 
+        const warnaMap = {
+            'pending': '#FF0000',
+            'diterima': '#0ca678',
+            'proses': '#024BA9'
+        };
+
         let assets = []; // pastikan ini global
         function getAllAsset() {
             $.ajax({
@@ -280,14 +286,10 @@
                     data.forEach(asset => {
                         if (!asset.koordinat) return;
                         let [lat, lng] = asset.koordinat.split(',').map(Number);
-                        let warna = '#ffffff';
-                        if (asset.laporan) {
-                            const warnaMap = {
-                                'pending': '#FF0000',
-                                'diterima': '#0ca678',
-                                'proses': '#024BA9'
-                            };
-                            warna = warnaMap[asset.laporan.status_laporan] || '#ffffff';
+                        let warna = '#ffffff'; // default abu-abu
+                        if (asset.latest_laporan && asset.latest_laporan.status_laporan) {
+                            warna = warnaMap[asset.latest_laporan.status_laporan.toLowerCase()] ||
+                                '#ffffff';
                         }
 
                         let iconUrl = "{{ asset('storage') }}/" + asset.jenis_asset.foto_jenis_asset;
