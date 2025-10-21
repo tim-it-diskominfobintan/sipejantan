@@ -353,7 +353,6 @@
                 width: 100%;
             }
         }
-        
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -643,9 +642,7 @@
                                         <input type="number" name="jumlah_detail_barang[]" class="form-control"
                                             min="1" value="1">
                                     </td>
-                                    <td>
-                                        <input type="text" class="form-control tanggal-garansi" readonly>
-                                    </td>
+                                    <td class="tanggal-garansi text-center align-middle"></td>
                                     <td class="text-center">
                                         <button type="button" class="btn btn-danger remove-detail_barang"><i
                                                 class="bi bi-trash"></i></button>
@@ -714,9 +711,7 @@
                                         <input type="number" name="jumlah_barang_rusak[]" class="form-control"
                                             min="1" value="1">
                                     </td>
-                                    <td>
-                                        <input type="text" class="form-control tanggal-garansi-rusak" readonly>
-                                    </td>
+                                    <td class="text-center align-middle tanggal-garansi-rusak"></td>
                                     <td>
                                         <input type="text" name="keterangan_rusak[]" class="form-control"
                                             placeholder="Contoh: Mati total, pecah, dsb">
@@ -802,7 +797,7 @@
                             activeSelect.val($(this).val()).trigger('change');
                             found = true;
                             const garansi = $(this).data('garansi') || '';
-                            activeSelect.closest('tr').find('.tanggal-garansi').val(garansi);
+                            activeSelect.closest('tr').find('.tanggal-garansi').text(garansi);
 
                             // 🔁 Update disable option setelah scan
                             filterBarangOptions();
@@ -878,9 +873,7 @@
                 <td>
                     <input type="number" name="jumlah_detail_barang[]" class="form-control" min="1" value="1">
                 </td>
-                <td>
-                    <input type="text" class="form-control tanggal-garansi" readonly>
-                </td>
+                <td class="tanggal-garansi text-center align-middle"></td>
                 <td class="text-center">
                     <button type="button" class="btn btn-danger remove-detail_barang">
                         <i class="bi bi-trash"></i>
@@ -907,7 +900,7 @@
         // Ketika select berubah (manual pilih)
         $(document).on('change', 'select[name="detail_barang_id[]"]', function() {
             let garansi = $(this).find(':selected').data('garansi') || '';
-            $(this).closest('tr').find('.tanggal-garansi').val(garansi);
+            $(this).closest('tr').find('.tanggal-garansi').text(garansi);
             filterBarangOptions();
         });
 
@@ -971,7 +964,8 @@
                             found = true;
 
                             const garansi = $(this).data('garansi-rusak') || '';
-                            activeSelectRusak.closest('tr').find('.tanggal-garansi-rusak').val(garansi);
+                            activeSelectRusak.closest('tr').find('.tanggal-garansi-rusak').text(
+                                garansi);
 
                             // Efek highlight sukses
                             const row = activeSelectRusak.closest('tr');
@@ -1050,9 +1044,7 @@
             <td>
                 <input type="number" name="jumlah_barang_rusak[]" class="form-control" min="1" value="1">
             </td>
-            <td>
-                <input type="text" class="form-control tanggal-garansi-rusak" readonly>
-            </td>
+            <td class="text-center align-middle tanggal-garansi-rusak"></td>
             <td>
                 <input type="text" name="keterangan_rusak[]" class="form-control" placeholder="Contoh: Mati total, pecah, dsb">
             </td>
@@ -1081,7 +1073,7 @@
         // Event perubahan barang rusak
         $(document).on('change', 'select[name="barang_rusak_id[]"]', function() {
             let garansi = $(this).find(':selected').data('garansi-rusak') || '';
-            $(this).closest('tr').find('.tanggal-garansi-rusak').val(garansi);
+            $(this).closest('tr').find('.tanggal-garansi-rusak').text(garansi);
             filterBarangRusakOptions();
         });
 
