@@ -16,6 +16,7 @@ class CreateJenisAssetTable extends Migration
         Schema::create('m_jenis_asset', function (Blueprint $table) {
             $table->id('id_jenis_asset');
             $table->text('jenis_asset');
+            $table->text('foto_jenis_asset');
             $table->timestamps();
             $table->text('created_by')->nullable();
             $table->text('updated_by')->nullable();

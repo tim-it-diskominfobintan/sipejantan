@@ -15,12 +15,12 @@ class CreateJalanTable extends Migration
     {
         Schema::create('m_jalan', function (Blueprint $table) {
             $table->id('id_jalan');
-            $table->longText('geojson_jalan');
+            $table->text('nama_jalan');
+            $table->integer('panjang_jalan');
             $table->unsignedBigInteger('kelurahan_id');
             $table->unsignedBigInteger('kecamatan_id');
             $table->unsignedBigInteger('penanggung_jawab_id');
-            $table->text('nama_jalan');
-            $table->integer('panjang_jalan');
+            $table->longText('geojson_jalan');
             $table->timestamps();
             $table->text('created_by')->nullable();
             $table->text('updated_by')->nullable();

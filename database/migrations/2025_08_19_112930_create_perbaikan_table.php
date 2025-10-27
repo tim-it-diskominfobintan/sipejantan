@@ -16,10 +16,11 @@ class CreatePerbaikanTable extends Migration
         Schema::create('perbaikan', function (Blueprint $table) {
             $table->id('id_perbaikan');
             $table->unsignedBigInteger('laporan_id');
-            $table->enum('status_perbaikan', ['mandiri', 'laporan']);
+            $table->enum('status_perbaikan', ['mandiri', 'umum']);
             $table->date('tanggal_perbaikan');
             $table->text('foto_perbaikan')->nullable();
             $table->text('keterangan');
+            $table->enum('status_progress', ['proses', 'selesai', 'ditolak']);
             $table->timestamps();
             $table->text('created_by')->nullable();
             $table->text('updated_by')->nullable();

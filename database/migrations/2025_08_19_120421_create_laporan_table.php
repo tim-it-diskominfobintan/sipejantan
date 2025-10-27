@@ -19,10 +19,11 @@ class CreateLaporanTable extends Migration
             $table->unsignedBigInteger('pelapor_id');
             $table->unsignedBigInteger('asset_id');
             $table->text('deskripsi_laporan');
-            $table->enum('status_laporan', ['diterima', 'pending', 'proses', 'selesai']);
+            $table->enum('status_laporan', ['diterima', 'pending', 'proses', 'selesai','ditolak']);
             $table->date('tanggal_laporan');
-            $table->text('keterangan');
+            $table->text('foto_laporan');
             $table->unsignedBigInteger('teknisi_id');
+            $table->text('ket_tolak');
             $table->timestamps();
             $table->text('created_by')->nullable();
             $table->text('updated_by')->nullable();

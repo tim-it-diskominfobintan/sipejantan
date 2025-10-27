@@ -15,11 +15,13 @@ class CreateAssetTable extends Migration
     {
         Schema::create('asset', function (Blueprint $table) {
             $table->id('id_asset');
+            $table->string('kode_asset');
             $table->unsignedBigInteger('jenis_asset_id');
             $table->unsignedBigInteger('penanggung_jawab_id');
             $table->unsignedBigInteger('jalan_id');
             $table->text('nama_asset');
             $table->text('koordinat');
+            $table->text('foto_asset');
             $table->timestamps();
             $table->text('created_by')->nullable();
             $table->text('updated_by')->nullable();

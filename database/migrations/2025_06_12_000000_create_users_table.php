@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->string('photo_profile')->nullable();
             $table->enum('status', ['active', 'inactive', 'locked', 'pending_verification', 'register_incomplete'])->default('active');
+            $table->integer('teknisi_id')->nullable();
             $table->string('status_description')->nullable();
             $table->enum('auth_provider', ['self', 'bintan-sso', 'google', 'facebook'])->default('self');
             $table->string('auth_provider_user_id', 36)->nullable()->comment('ini gunanya untuk simpan id asli dari usernya, misal google account id, bintan sso id, facebook id');

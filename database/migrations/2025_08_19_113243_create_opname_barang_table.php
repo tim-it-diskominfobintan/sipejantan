@@ -15,9 +15,9 @@ class CreateOpnameBarangTable extends Migration
     {
         Schema::create('opname_barang', function (Blueprint $table) {
             $table->id('id_opname');
-            $table->unsignedBigInteger('barang_id');
+            $table->unsignedBigInteger('detail_barang_id');
             $table->date('tanggal_opname');
-            $table->enum('jenis_opname', ['masuk', 'keluar']);
+            $table->enum('jenis_opname', ['masuk', 'keluar', 'rusak']);
             $table->integer('jumlah_opname');
             $table->text('no_bukti');
             $table->text('keterangan');
