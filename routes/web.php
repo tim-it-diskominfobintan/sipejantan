@@ -92,6 +92,7 @@ Route::resource('admin/master/jenis_asset', JenisassetController::class)->middle
 Route::resource('admin/master/penanggung_jawab', PenanggungJawabController::class)->middleware('role:superadmin|admin');
 Route::resource('admin/master/teknisi', MasterTeknisiController::class)->middleware('role:superadmin|admin');
 //jalan route
+Route::get('admin/master/jalan/export', [JalanController::class, 'export'])->name('admin.master.jalan.export')->middleware('role:superadmin|admin|teknisi');
 Route::resource('admin/master/jalan', JalanController::class)->middleware('role:superadmin|admin');
 Route::post('admin/master/jalan/create', [JalanController::class, 'store'])->middleware('role:superadmin|admin');
 Route::put('admin/master/jalan/{id}/edit', [JalanController::class, 'update'])->middleware('role:superadmin|admin');
@@ -144,6 +145,7 @@ Route::get('admin/perbaikan/detail/{id}', [PerbaikanController::class, 'show'])-
 Route::get('admin/perbaikan/edit/{id}', [PerbaikanController::class, 'edit'])->middleware('role:superadmin|admin|teknisi');
 Route::post('admin/perbaikan/edit/{id}', [PerbaikanController::class, 'update'])->middleware('role:superadmin|admin|teknisi');
 Route::delete('admin/perbaikan/delete/{id}', [PerbaikanController::class, 'destroy'])->middleware('role:superadmin|admin|teknisi');
+
 
 Route::get('data_teknisi/{id}', [LaporanController::class, 'data_teknisi'])
     ->name('data_teknisi')

@@ -113,6 +113,12 @@
             <a href="{{ url('admin/master/jalan/create') }}" class="btn btn-primary">
                 <i class="bi bi-plus-lg me-2"></i> Tambah {{ $title }}
             </a>
+            <a href="{{ url('admin/master/jalan/export') }}" class="btn btn-success" target="_blank">
+                <i class="bi bi-file-earmark-excel me-2"></i> Export
+            </a>
+            <a href="{{ url('admin/master/jalan/import') }}" class="btn btn-warning">
+                <i class="bi bi-upload me-2"></i> Import
+            </a>
         </div>
     </div>
 @endsection

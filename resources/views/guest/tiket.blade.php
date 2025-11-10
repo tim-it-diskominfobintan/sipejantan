@@ -122,10 +122,9 @@
                                         <div class="row g-0 align-items-start">
                                             <!-- Avatar Pelapor (di kiri pada md+, atas di mobile) -->
                                             <div class="col-12 col-md-auto text-center p-3">
-                                                <div
-                                                    class="rounded-circle overflow-hidden border shadow-sm avatar-box mx-auto">
-                                                    <img src="{{ asset('storage/' . $item->pelapor->foto_identitas) }}"
-                                                        class="w-100 h-100 object-fit-cover" alt="Foto Pelapor">
+                                                <div class="rounded-circle overflow-hidden border shadow-sm avatar-box mx-auto d-flex align-items-center justify-content-center bg-light"
+                                                    style="width: 80px; height: 80px;">
+                                                    <i class="bi bi-person fs-1 text-secondary"></i>
                                                 </div>
                                             </div>
 

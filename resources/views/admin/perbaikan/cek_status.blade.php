@@ -54,9 +54,11 @@
                         </div>
                         <div class="card-body d-flex align-items-start info-flex">
                             <!-- Foto -->
-                            <div class="me-3 flex-shrink-0">
+                            <div class="me-3 flex-shrink-0 text-center">
                                 <img src="{{ asset('storage/' . $pelapor->foto_identitas) }}" alt="Foto Identitas"
-                                    class="rounded shadow-sm border" style="width:130px; height:100px; object-fit:cover;">
+                                    class="rounded shadow-sm border"
+                                    style="width:130px; height:100px; object-fit:cover; cursor:pointer;"
+                                    data-bs-toggle="modal" data-bs-target="#modalPelapor">
                             </div>
 
                             <!-- Detail -->
@@ -103,7 +105,6 @@
                                     class="rounded shadow-sm border"
                                     style="width:100px; height:100px; object-fit:cover; cursor:pointer;"
                                     data-bs-toggle="modal" data-bs-target="#modalLaporan">
-                                <div class="small text-muted mt-1">Lihat file</div>
                             </div>
 
                             <!-- Detail -->

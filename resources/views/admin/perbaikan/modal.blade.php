@@ -36,6 +36,27 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalPelapor" tabindex="-1" role="dialog" aria-labelledby="modalPelaporLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPelaporLabel">Foto Pelapor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <!-- Foto-foto Pelapor -->
+                <div class="row justify-content-center">
+                    <div class="col-4 mb-3">
+                        <img src="{{ asset('storage/' . $pelapor->foto_identitas) }}" alt="Foto Laporan"
+                            class="img-fluid rounded shadow-sm border" style="max-height:300px; object-fit:cover;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {{-- modal cek --}}
 <div class="modal modal-blur fade" id="cekModal" tabindex="-1" aria-labelledby="cekModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
