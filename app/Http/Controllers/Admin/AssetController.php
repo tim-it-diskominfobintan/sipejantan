@@ -10,12 +10,15 @@ use App\Models\Laporan;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\JenisAsset;
+use App\Exports\AssetExport;
+use App\Imports\AssetImport;
 use App\Models\DokumenAsset;
 use Illuminate\Http\Request;
 use App\Models\PenanggungJawab;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\JsonResponseHelper;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Validation\ValidationException;
@@ -334,5 +337,22 @@ class AssetController extends Controller
             DB::rollBack();
             return JsonResponseHelper::error($e->getMessage(), JsonResponseHelper::$FAILED_STORE . " " . $e->getMessage());
         }
+    }
+
+    public function export()
+    {
+        $fileName = 'asset_' . now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new AssetExport, $fileName);
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
+
+        Excel::import(new AssetImport, $request->file('file'));
+
+        return redirect()->back()->with('success', 'Data asset berhasil diimport!');
     }
 }

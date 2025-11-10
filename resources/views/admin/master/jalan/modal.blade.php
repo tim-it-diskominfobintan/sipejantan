@@ -124,7 +124,7 @@
                 <div class="mb-3">
                     <label for="file" class="form-label">Pilih File Excel (.xlsx / .xls)</label>
                     <input type="file" class="form-control mb-2" name="file" accept=".xlsx,.xls" required>
-                    <small><a href="{{ asset('storage/template jalan.xlsx') }}">Download template
+                    <small><a href="{{ asset('assets/template jalan.xlsx') }}">Download template
                             disini</a></small>
                 </div>
             </div>

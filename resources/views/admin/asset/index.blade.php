@@ -6,9 +6,12 @@
             <a href="{{ url('admin/asset/create') }}" class="btn btn-primary">
                 <i class="bi bi-plus-lg me-2"></i> Tambah {{ $title }}
             </a>
-            <a href="{{ url('admin/asset/create') }}" class="btn btn-success" hidden>
-                <i class="bi bi-printer me-2"></i> Cetak {{ $title }}
+            <a href="{{ url('admin/asset/export') }}" class="btn btn-success" target="_blank">
+                <i class="bi bi-file-earmark-excel me-2"></i> Export
             </a>
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalImport">
+                <i class="bi bi-upload me-2"></i> Import
+            </button>
         </div>
     </div>
 @endsection
@@ -21,6 +24,9 @@
                     <h3 class="card-title">List {{ $title }}</h3>
                     {{-- <button id="reload" class="ms-5">Reload</button> --}}
                 </div>
+                @if (session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
                 <div class="card-body py-0 px-0 mx-0">
                     <div class="table-responsive table-full-to-card-body">
                         <table class="table" id="table">

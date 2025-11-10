@@ -103,6 +103,8 @@ Route::post('admin/detail_barang/{id}', [DetailBarangController::class, 'store']
 Route::put('admin/detail_barang/{id}', [DetailBarangController::class, 'update'])->middleware('role:superadmin|admin');
 Route::delete('admin/detail_barang/{id}', [DetailBarangController::class, 'destroy'])->middleware('role:superadmin|admin');
 //asset route
+Route::get('admin/asset/export', [AssetController::class, 'export'])->middleware('role:superadmin|admin|teknisi');
+Route::post('admin/asset/import', [AssetController::class, 'import'])->name('asset.import')->middleware('role:superadmin|admin|teknisi');
 Route::resource('admin/asset', AssetController::class)->middleware('role:superadmin|admin');
 Route::post('admin/asset/create', [AssetController::class, 'store'])->middleware('role:superadmin|admin');
 Route::put('admin/asset/{id}/edit', [AssetController::class, 'update'])->middleware('role:superadmin|admin');
