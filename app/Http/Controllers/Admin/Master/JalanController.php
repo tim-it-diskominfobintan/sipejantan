@@ -8,6 +8,7 @@ use App\Helpers\Helper;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Exports\JalanExport;
+use App\Imports\JalanImport;
 use Illuminate\Http\Request;
 use App\Models\PenanggungJawab;
 use Illuminate\Support\Facades\DB;
@@ -211,5 +212,16 @@ class JalanController extends Controller
     {
         $fileName = 'data_jalan_' . now()->format('Ymd_His') . '.xlsx';
         return Excel::download(new JalanExport, $fileName);
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
+
+        Excel::import(new JalanImport, $request->file('file'));
+
+        return redirect()->back()->with('success', 'Data jalan berhasil diimport!');
     }
 }

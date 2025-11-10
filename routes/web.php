@@ -93,6 +93,7 @@ Route::resource('admin/master/penanggung_jawab', PenanggungJawabController::clas
 Route::resource('admin/master/teknisi', MasterTeknisiController::class)->middleware('role:superadmin|admin');
 //jalan route
 Route::get('admin/master/jalan/export', [JalanController::class, 'export'])->name('admin.master.jalan.export')->middleware('role:superadmin|admin|teknisi');
+Route::post('admin/master/jalan/import', [JalanController::class, 'import'])->name('jalan.import')->middleware('role:superadmin|admin|teknisi');
 Route::resource('admin/master/jalan', JalanController::class)->middleware('role:superadmin|admin');
 Route::post('admin/master/jalan/create', [JalanController::class, 'store'])->middleware('role:superadmin|admin');
 Route::put('admin/master/jalan/{id}/edit', [JalanController::class, 'update'])->middleware('role:superadmin|admin');

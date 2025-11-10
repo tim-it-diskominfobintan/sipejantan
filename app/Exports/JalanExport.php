@@ -10,12 +10,29 @@ class JalanExport implements FromCollection, WithHeadings
 {
     public function collection()
     {
-        // Pilih kolom sesuai tabel kamu
-        return Jalan::select('id_jalan', 'nama_jalan', 'panjang_jalan', 'kecamatan_id', 'kelurahan_id', 'penanggung_jawab_id')->get();
+        $data = Jalan::with(['kecamatan', 'kelurahan', 'penanggung_jawab'])->get();
+
+        return $data->map(function ($item) {
+            return [
+                'ID Jalan'          => $item->id_jalan,
+                'Nama Jalan'        => $item->nama_jalan,
+                'Panjang (m)'       => $item->panjang_jalan,
+                'Kecamatan'         => $item->kecamatan->nama_kecamatan ?? '-',
+                'Kelurahan/Desa'    => $item->kelurahan->nama_kelurahan ?? '-',
+                'Penanggung Jawab'  => $item->penanggung_jawab->nama_penanggung_jawab ?? '-',
+            ];
+        });
     }
 
     public function headings(): array
     {
-        return ['ID Jalan', 'Nama Jalan', 'Panjang (m)', 'Kecamatan', 'Kelurahan', 'Penanggung Jawab'];
+        return [
+            'ID Jalan',
+            'Nama Jalan',
+            'Panjang (m)',
+            'Kecamatan',
+            'Kelurahan/Desa',
+            'Penanggung Jawab',
+        ];
     }
 }

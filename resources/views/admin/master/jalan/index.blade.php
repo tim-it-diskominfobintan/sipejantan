@@ -116,9 +116,9 @@
             <a href="{{ url('admin/master/jalan/export') }}" class="btn btn-success" target="_blank">
                 <i class="bi bi-file-earmark-excel me-2"></i> Export
             </a>
-            <a href="{{ url('admin/master/jalan/import') }}" class="btn btn-warning">
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalImport">
                 <i class="bi bi-upload me-2"></i> Import
-            </a>
+            </button>
         </div>
     </div>
 @endsection
@@ -131,6 +131,9 @@
                     <h3 class="card-title">List {{ $title }}</h3>
                     {{-- <button id="reload" class="ms-5">Reload</button> --}}
                 </div>
+                @if (session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
                 <div class="card-body py-0 px-0 mx-0">
                     <div class="table-responsive table-full-to-card-body">
                         <table class="table" id="table">
