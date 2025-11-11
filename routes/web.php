@@ -161,6 +161,9 @@ Route::get('data_teknisi/{id}', [LaporanController::class, 'data_teknisi'])
     ->middleware('role:superadmin|admin|teknisi');
 
 Route::get('admin/profile/me/activity', [AdminProfileController::class, 'myActivity'])->middleware('role:superadmin|admin|teknisi');
+Route::patch('/admin/profile/me/password', [AdminProfileController::class, 'updatePassword'])->middleware(['auth', 'role:superadmin|admin|teknisi']);
+Route::patch('admin/profile/update_photo', [AdminProfileController::class, 'updatePhoto'])->middleware(['auth', 'role:superadmin|admin|teknisi']);
+Route::patch('admin/profile/update_profil', [AdminProfileController::class, 'updateProfil'])->middleware(['auth', 'role:superadmin|admin|teknisi']);
 Route::resource('admin/profile', AdminProfileController::class)->middleware('role:superadmin|admin|teknisi');
 
 // tidak digunakan

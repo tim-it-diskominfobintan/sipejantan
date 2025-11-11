@@ -4,8 +4,24 @@
     {{-- UNTUK TOMBOL TAMBAH DATA DLL, KALO GAADA KOSONGIN AJA --}}
     <div class="col-auto ms-auto d-print-none">
         <div class="btn-list">
-            <button type="button" class="btn btn-warning-light" data-bs-toggle="modal" data-bs-target="#modal-create">
+            <button type="button" class="btn btn-1" data-bs-toggle="modal" data-bs-target="#modal-update_photo">
+                <i class="bi bi-pen me-2"></i> Ganti Foto {{ $title }}
+            </button>
+        </div>
+    </div>
+
+    <div class="col-auto ms-auto d-print-none">
+        <div class="btn-list">
+            <button type="button" class="btn btn-1" data-bs-toggle="modal" data-bs-target="#modal-update_profil">
                 <i class="bi bi-pen me-2"></i> Edit {{ $title }}
+            </button>
+        </div>
+    </div>
+
+    <div class="col-auto ms-auto d-print-none">
+        <div class="btn-list">
+            <button type="button" class="btn btn-1" data-bs-toggle="modal" data-bs-target="#modal-update_password">
+                <i class="bi bi-lock force-bi-bold-05 me-2"></i> Ganti password
             </button>
         </div>
     </div>
@@ -92,10 +108,171 @@
             </div>
         </div>
     </div>
+    @include('admin.profile.modal')
 @endsection
 
 @push('script')
     <script>
+        $(document).ready(function() {
+            // Tambahkan progress bar di HTML atau create dynamically
+            function createPasswordStrengthMeter() {
+                $('#update_password-new_password').after(`
+                    <div class="password-strength-meter mt-2">
+                        <div class="progress mb-2" style="height: 5px;">
+                            <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                        </div>
+                        <div class="password-requirements"></div>
+                    </div>
+                `);
+            }
+
+            createPasswordStrengthMeter();
+
+            function checkPasswordStrength(password) {
+                let score = 0;
+                const requirements = {
+                    length: password.length >= 8,
+                    uppercase: /[A-Z]/.test(password),
+                    lowercase: /[a-z]/.test(password),
+                    number: /[0-9]/.test(password),
+                    symbol: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+                };
+
+                // Hitung score
+                Object.values(requirements).forEach(met => {
+                    if (met) score += 20;
+                });
+
+                return {
+                    score,
+                    requirements
+                };
+            }
+
+            function displayPasswordStrength(password) {
+                const {
+                    score,
+                    requirements
+                } = checkPasswordStrength(password);
+                const progressBar = $('.password-strength-meter .progress-bar');
+                const requirementsDiv = $('.password-strength-meter .password-requirements');
+
+                if (password === '') {
+                    progressBar.css('width', '0%').removeClass('bg-danger bg-warning bg-success');
+                    requirementsDiv.html('');
+                    return;
+                }
+
+                // Update progress bar
+                progressBar.css('width', score + '%');
+
+                if (score < 40) {
+                    progressBar.removeClass('bg-warning bg-success').addClass('bg-danger');
+                } else if (score < 80) {
+                    progressBar.removeClass('bg-danger bg-success').addClass('bg-warning');
+                } else {
+                    progressBar.removeClass('bg-danger bg-warning').addClass('bg-success');
+                }
+
+                // Update requirements list
+                const requirementsHtml = `
+                    <div class="small">
+                        <div class="${requirements.length ? 'text-success' : 'text-danger'}"><i class="bi bi-${requirements.length ? 'check' : 'x'}-circle me-1"></i>Minimal 8 karakter</div>
+                        <div class="${requirements.uppercase ? 'text-success' : 'text-danger'}"><i class="bi bi-${requirements.uppercase ? 'check' : 'x'}-circle me-1"></i>Minimal 1 huruf kapital</div>
+                        <div class="${requirements.lowercase ? 'text-success' : 'text-danger'}"><i class="bi bi-${requirements.lowercase ? 'check' : 'x'}-circle me-1"></i>Minimal 1 huruf kecil</div>
+                        <div class="${requirements.number ? 'text-success' : 'text-danger'}"><i class="bi bi-${requirements.number ? 'check' : 'x'}-circle me-1"></i>Minimal 1 angka</div>
+                        <div class="${requirements.symbol ? 'text-success' : 'text-danger'}"><i class="bi bi-${requirements.symbol ? 'check' : 'x'}-circle me-1"></i>Minimal 1 simbol</div>
+                    </div>
+                `;
+                requirementsDiv.html(requirementsHtml);
+            }
+
+            // Function untuk mengecek match password (sama seperti sebelumnya)
+            function checkPasswordMatch() {
+                const newPassword = $('#update_password-new_password').val();
+                const confirmPassword = $('#update_password-confirm_new_password').val();
+                const confirmMsg = $('#update_password-confirm_new_password-msg');
+
+                if (newPassword === '' && confirmPassword === '') {
+                    confirmMsg.html('').removeClass('text-success text-danger');
+                    return true;
+                }
+
+                if (newPassword === '' || confirmPassword === '') {
+                    confirmMsg.html('').removeClass('text-success text-danger');
+                    return false;
+                }
+
+                if (newPassword === confirmPassword) {
+                    confirmMsg.html(
+                        '<small class="text-success"><i class="bi bi-check-circle me-1"></i>Password cocok</small>'
+                    ).removeClass('text-danger').addClass('text-success');
+                    return true;
+                } else {
+                    confirmMsg.html(
+                        '<small class="text-danger"><i class="bi bi-x-circle me-1"></i>Password tidak cocok</small>'
+                    ).removeClass('text-success').addClass('text-danger');
+                    return false;
+                }
+            }
+
+            // Event listeners
+            $('#update_password-new_password').on('input', function() {
+                displayPasswordStrength($(this).val());
+                checkPasswordMatch();
+            });
+
+            $('#update_password-confirm_new_password').on('input', checkPasswordMatch);
+
+            $('#form-update_password').on('submit', function(e) {
+                const newPassword = $('#update_password-new_password').val();
+                const {
+                    score,
+                    requirements
+                } = checkPasswordStrength(newPassword);
+                const isMatch = checkPasswordMatch();
+
+                if (score < 100 || !isMatch) {
+                    e.preventDefault();
+                    if (score < 100) {
+                        alert('Password tidak memenuhi semua requirements!');
+                    } else if (!isMatch) {
+                        alert('Password tidak cocok!');
+                    }
+                }
+            });
+
+            // Toggle show/hide password (untuk semua field)
+            $('.toggle-password').on('click', function(e) {
+                e.preventDefault();
+
+                const $toggle = $(this);
+                const $inputGroup = $toggle.closest('.input-group');
+                const $passwordInput = $inputGroup.find('input');
+                const $icon = $toggle.find('i');
+
+                const isPassword = $passwordInput.attr('type') === 'password';
+
+                // Toggle type
+                $passwordInput.attr('type', isPassword ? 'text' : 'password');
+
+                // Toggle icon
+                $icon.toggleClass('bi-eye bi-eye-slash');
+
+                // Toggle aria-label dan tooltip
+                const newLabel = isPassword ? 'Sembunyikan password' : 'Tampilkan password';
+                $toggle.attr('aria-label', newLabel).attr('data-bs-original-title', newLabel);
+
+                // Update tooltip jika Bootstrap tooltip aktif
+                const tooltip = bootstrap.Tooltip.getInstance($toggle[0]);
+                if (tooltip) {
+                    tooltip.setContent({
+                        '.tooltip-inner': newLabel
+                    });
+                }
+            });
+        });
+
         let formMode = 'create'
 
         getBrowserSessions()
@@ -139,6 +316,46 @@
         $('#btn-clear-all-session').click(function() {
             logoutOtherSessions()
         })
+
+        $('#update-photo_profile').change(function() {
+            previewImageFromInput(this, '#update-photo_profile-preview');
+        });
+
+        $('#form-update_photo').submit(function(e) {
+            e.preventDefault();
+
+            formMode = 'update_photo'
+
+            const formData = new FormData(this)
+            formData.append('_token', getCsrfToken())
+            formData.append('_method', 'patch')
+
+            callApi(formData, "{{ url('admin/profile/update_photo') }}") // URL langsung
+        });
+
+        $('#form-update_password').submit(function(e) {
+            e.preventDefault();
+
+            formMode = 'update_password'
+
+            const formData = new FormData(this)
+            formData.append('_token', getCsrfToken())
+            formData.append('_method', 'patch')
+
+            callApi(formData, "{{ url()->current() }}" + "/password")
+        });
+
+        $('#form-update_profil').submit(function(e) {
+            e.preventDefault();
+
+            formMode = 'update_profil'
+
+            const formData = new FormData(this)
+            formData.append('_token', getCsrfToken())
+            formData.append('_method', 'patch')
+
+            callApi(formData, "{{ url('admin/profile/update_profil') }}") // URL langsung
+        });
 
         function getBrowserSessions() {
             $.ajax({
