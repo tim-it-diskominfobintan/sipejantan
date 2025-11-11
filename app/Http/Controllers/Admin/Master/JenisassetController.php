@@ -8,9 +8,11 @@ use App\Helpers\Helper;
 use App\Models\Kecamatan;
 use App\Models\JenisAsset;
 use Illuminate\Http\Request;
+use App\Exports\JenisAssetExport;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\JsonResponseHelper;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Validation\ValidationException;
@@ -162,5 +164,11 @@ class JenisassetController extends Controller
             DB::rollBack();
             return JsonResponseHelper::error($e->getMessage(), JsonResponseHelper::$FAILED_STORE . " " . $e->getMessage());
         }
+    }
+
+    public function export()
+    {
+        $fileName = 'jenis asset_' . now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new JenisAssetExport, $fileName);
     }
 }

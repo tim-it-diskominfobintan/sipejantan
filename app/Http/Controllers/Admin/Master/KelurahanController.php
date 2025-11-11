@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Admin\Master;
 use Exception;
 use Throwable;
 use App\Helpers\Helper;
+use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use Illuminate\Http\Request;
+use App\Exports\KelurahanExport;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\JsonResponseHelper;
 use App\Http\Controllers\Controller;
-use App\Models\Kecamatan;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Validation\ValidationException;
 
@@ -151,5 +153,11 @@ class KelurahanController extends Controller
             DB::rollBack();
             return JsonResponseHelper::error($e->getMessage(), JsonResponseHelper::$FAILED_STORE . " " . $e->getMessage());
         }
+    }
+
+    public function export()
+    {
+        $fileName = 'kelurahan_' . now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new KelurahanExport, $fileName);
     }
 }

@@ -7,6 +7,9 @@
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-create">
                 <i class="bi bi-plus-lg me-2"></i> Tambah {{ $title }}
             </button>
+            <a href="{{ url('admin/master/jenis_asset/export') }}" class="btn btn-success" target="_blank">
+                <i class="bi bi-file-earmark-excel me-2"></i> Export
+            </a>
         </div>
     </div>
 @endsection

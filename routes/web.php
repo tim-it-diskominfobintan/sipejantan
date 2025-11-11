@@ -86,8 +86,11 @@ Route::resource('admin/master/opd', AdminOpdController::class)->middleware('role
 Route::resource('admin/master/user', AdminUserController::class)->middleware('role:superadmin|admin');
 Route::resource('admin/master/role', AdminRoleController::class)->middleware('role:superadmin|admin');
 Route::resource('admin/master/permission', AdminPermissionController::class)->middleware('role:superadmin|admin');
+Route::get('admin/master/kecamatan/export', [AdminKecamatanController::class, 'export'])->middleware('role:superadmin|admin');
 Route::resource('admin/master/kecamatan', AdminKecamatanController::class)->middleware('role:superadmin|admin');
+Route::get('admin/master/kelurahan/export', [AdminKelurahanController::class, 'export'])->middleware('role:superadmin|admin');
 Route::resource('admin/master/kelurahan', AdminKelurahanController::class)->middleware('role:superadmin|admin');
+Route::get('admin/master/jenis_asset/export', [JenisassetController::class, 'export'])->middleware('role:superadmin|admin');
 Route::resource('admin/master/jenis_asset', JenisassetController::class)->middleware('role:superadmin|admin');
 Route::resource('admin/master/penanggung_jawab', PenanggungJawabController::class)->middleware('role:superadmin|admin');
 Route::resource('admin/master/teknisi', MasterTeknisiController::class)->middleware('role:superadmin|admin');

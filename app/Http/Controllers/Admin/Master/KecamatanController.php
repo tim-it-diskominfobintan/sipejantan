@@ -9,9 +9,11 @@ use App\Helpers\Helper;
 use App\Models\Kecamatan;
 use Illuminate\Http\Request;
 use App\Models\ProfilPegawai;
+use App\Exports\KecamatanExport;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\JsonResponseHelper;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Validation\ValidationException;
@@ -142,5 +144,11 @@ class KecamatanController extends Controller
             DB::rollBack();
             return JsonResponseHelper::error($e->getMessage(), JsonResponseHelper::$FAILED_STORE . " " . $e->getMessage());
         }
+    }
+
+    public function export()
+    {
+        $fileName = 'kecamatan_' . now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new KecamatanExport, $fileName);
     }
 }
