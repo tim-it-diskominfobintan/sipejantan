@@ -7,6 +7,9 @@
             <a href="{{ route('laporan.create') }}" class="btn btn-primary">
                 <i class="bi bi-plus-lg me-2"></i> Tambah {{ $title }}
             </a>
+            <a href="{{ route('laporan.export') }}" class="btn btn-success" target="_blank">
+                <i class="bi bi-file-earmark-excel me-2"></i> Export
+            </a>
         </div>
     </div>
 @endsection

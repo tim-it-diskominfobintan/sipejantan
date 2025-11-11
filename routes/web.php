@@ -131,10 +131,13 @@ Route::prefix('admin')->middleware('role:superadmin|admin|teknisi')->group(funct
         ->where('asset', '[0-9]+')
         ->name('laporan.index');
 
+    Route::get('laporan/export', [LaporanController::class, 'export'])->name('laporan.export');
+
     Route::resource('laporan', LaporanController::class)
         ->except(['index', 'create', 'store', 'show']);
 });
 
+Route::get('admin/rusak/export', [BarangRusakController::class, 'export'])->middleware('role:superadmin|admin|teknisi');
 Route::resource('admin/rusak', BarangRusakController::class)->middleware('role:superadmin|admin|teknisi');
 Route::get('admin/detail_barang_status/{id}', [BarangRusakController::class, 'detail'])->middleware('role:superadmin|admin|teknisi');
 

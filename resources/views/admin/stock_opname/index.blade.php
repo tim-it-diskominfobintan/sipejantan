@@ -1,10 +1,10 @@
 @extends('layouts.admin.main')
 @section('action-header')
     {{-- UNTUK TOMBOL TAMBAH DATA DLL, KALO GAADA KOSONGIN AJA --}}
-    <div class="col-auto ms-auto d-print-none" hidden>
+    <div class="col-auto ms-auto d-print-none">
         <div class="btn-list">
-            <a href="{{ url('admin/stok_opname/create') }}" class="btn btn-primary">
-                <i class="bi bi-plus-lg me-2"></i> Tambah {{ $title }}
+            <a href="{{ url('admin/rusak/export') }}" class="btn btn-success" target="_blank">
+                <i class="bi bi-file-earmark-excel me-2"></i> Export
             </a>
         </div>
     </div>

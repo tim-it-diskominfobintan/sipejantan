@@ -14,11 +14,13 @@ use App\Models\Kelurahan;
 use App\Models\Perbaikan;
 use App\Models\DokLaporan;
 use Illuminate\Http\Request;
+use App\Exports\LaporanExport;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\JsonResponseHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Validation\ValidationException;
@@ -598,5 +600,11 @@ class LaporanController extends Controller
     public function data_teknisi($id)
     {
         return Teknisi::findorFail($id);
+    }
+
+    public function export()
+    {
+        $fileName = 'laporan_' . now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new LaporanExport, $fileName);
     }
 }

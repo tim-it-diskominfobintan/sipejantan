@@ -9,8 +9,10 @@ use App\Models\Teknisi;
 use App\Models\Perbaikan;
 use App\Models\DokLaporan;
 use App\Models\StockOpname;
+use App\Exports\RusakExport;
 use Illuminate\Http\Request;
 use App\Models\TransPerbaikanBarang;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class BarangRusakController extends Controller
@@ -229,5 +231,11 @@ class BarangRusakController extends Controller
         $data['doklaporan'] = DokLaporan::where('laporan_id', $perbaikan->laporan_id)->get();
 
         return view('admin.stock_opname.detail', $data);
+    }
+
+    public function export()
+    {
+        $fileName = 'barang_rusak_' . now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new RusakExport, $fileName);
     }
 }
